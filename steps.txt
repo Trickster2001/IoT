@@ -1,0 +1,59 @@
+Code For MCU 
+from gpio import *
+from time import *
+from ioeclient import IoEClient
+
+def main():
+	pinMode(0,OUT)
+	pinMode(0,IN)
+	
+	
+	while True:
+		customWrite(0,"Waiting")
+		rfid=analogRead(A1)
+		if rfid ==0:
+			customWrite(0,"Success")
+		delay(3000)
+if __name__ =="__main__":
+	main()
+
+
+
+Code For RFID reader line no 66 to 70
+if cardID == "1001":
+	setState(0)		
+else:
+	setState(1)
+
+
+
+Steps:
+Take pc, dlc100, door, rfid reader, mcu, rfid card, lcd
+
+DLC100:
+config>wireless> WPA2-PSK PSK> gateconnect
+
+Door:
+GLOBAL> Home Gateway
+Advanced>I/O config> PT-IOT-NM-1W
+config>wireless> WPA2-PSK PSK> gateconnect
+
+PC:
+Physical> Switch off> remove the part> Add 1W> add hair dryer to the removed part> Switch on
+Config> Wireless> SSID = HomeGateway> WPA2-PSK PSK> gateconnect
+
+RFID Reader:
+GLOBAL> Home Gateway
+Advanced>I/O config> PT-IOT-NM-1W> digital slot=2 > analog slot=2
+config>wireless> WPA2-PSK PSK> gateconnect
+
+MCU:
+Programming> Paste the code> Run
+
+RFID Reader:
+Change the code a little bit and Run
+
+PC:
+Desktop> IoT monitor> Login> Conditions> Name: Reader Valid, IoT0 status is valid, IoT2 lock to unlock
+Desktop> IoT monitor> Login> Conditions> Name: Reader Invalid, IoT0 status is Invalid, IoT2 lock to lock
+Desktop> IoT monitor> Login> Conditions> Name: Reader Waiting, IoT0 status is Waiting, IoT2 lock to lock
